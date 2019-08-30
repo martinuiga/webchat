@@ -12,7 +12,7 @@ class ChatRoomController {
             _.remove(chatRoom.connectedUsers, user);
         });
         // Reset the chatLog if everyone left
-        if (chatRoom.connectedUsers.empty()) {
+        if (chatRoom.connectedUsers.length === 0) {
             chatLog.log = [];
         }
         return chatRoom;

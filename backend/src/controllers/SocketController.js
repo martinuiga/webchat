@@ -24,11 +24,13 @@ class SocketController {
         });
 
         this.socket.on('disconnect', () => {
-            console.log('disconnected');
+            console.log("disconnected");
+            UserController.userDisconnected(this.users, this.socket);
+            this.updateRoomsAll(this.chatRoom, this.users, this.io, this.chatLog);
         });
         this.socket.on('reconnect', (action) => {
             this.actionInitialize(action, this.socket.id);
-        })
+        });
     };
 
     actionInitialize = (action, id) => {
@@ -83,6 +85,18 @@ class SocketController {
 
         this.updateRoomsOthers(this.chatRoom, this.users, this.socket, this.chatLog);
         this.socket.join(this.chatRoom.name);
+    };
+
+    updateRoomsAll = (chatRoom, users, io, chatLog) => {
+        ChatRoomController.updateRoom(chatRoom, users, chatLog);
+
+        io.sockets.emit('action', {
+            type: 'ROOM_UPDATE',
+            data: {
+                chatRoom: chatRoom,
+                users: users
+            }
+        });
     };
 
     updateRoomsOthers = (chatRoom, users, socket, chatLog) => {
