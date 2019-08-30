@@ -2,6 +2,7 @@ import _ from 'lodash';
 import socketActions from '../config/actions';
 import UserController from './UserController';
 import ChatRoomController from './ChatRoomController';
+import ChatLogController from './ChatLogController';
 
 class SocketController {
     constructor(socket, io, chatRoom, chatLog, users) {
@@ -18,6 +19,12 @@ class SocketController {
             switch (action.type) {
                 case socketActions.INITIALIZE:
                     return this.actionInitialize(action, this.socket.id);
+                case socketActions.SEND_MESSAGE:
+                    return this.actionMessage(action);
+                case socketActions.RECONNECT:
+                    return this.actionInitialize(action, this.socket.id);
+                case socketActions.TYPING:
+                    return this.actionTyping(action);
                 default:
                     return console.log('Unknown action ', action.type);
             }
@@ -85,6 +92,7 @@ class SocketController {
 
         this.updateRoomsOthers(this.chatRoom, this.users, this.socket, this.chatLog);
         this.socket.join(this.chatRoom.name);
+        ChatLogController.updateChatLogFull(this.chatRoom.name, this.io, this.chatLog.log);
     };
 
     updateRoomsAll = (chatRoom, users, io, chatLog) => {
@@ -107,6 +115,26 @@ class SocketController {
             data: {
                 chatRoom: chatRoom,
                 users: users
+            }
+        });
+    };
+
+    actionMessage = (action) => {
+        if (action.data.message === "") {
+            return this.sendError('Message missing', 'Error');
+        }
+        ChatLogController.updateChatLog(this.chatRoom, this.users, this.io,
+            action.data.nickname, this.chatLog, action.data.message);
+    };
+
+    actionTyping = (action) => {
+        this.socket.broadcast.emit('action', {
+            type: 'USERS_UPDATE',
+            data: {
+                typingStatus: {
+                    typingId: action.data.userId,
+                    typing: action.data.typing
+                }
             }
         });
     };
