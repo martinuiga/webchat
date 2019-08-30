@@ -1,18 +1,20 @@
 const config = {
-  app: {
-    port: process.env.PORT || 3005,
-  }
+    app: {
+        port: process.env.PORT || 3005,
+        pipedriveAPIkey: ''
+    }
 };
 
 const chatLog = {
-  roomId: 0,
-  log: []
+    roomId: 0,
+    log: [],
+    dealNumber: 0
 };
 
 const chatRoom = {
-  id: 0,
-  name: 'chatroom',
-  connectedUsers: [],
+    id: 0,
+    name: 'chatroom',
+    connectedUsers: [],
 };
 
 const users = [
@@ -26,8 +28,8 @@ const users = [
 ];
 
 module.exports = {
-  chatRoom,
-  chatLog,
-  users,
-  config
+    chatRoom,
+    chatLog,
+    users,
+    config
 };
