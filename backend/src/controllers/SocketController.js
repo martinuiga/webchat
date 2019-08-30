@@ -1,16 +1,17 @@
 import _ from 'lodash';
 import socketActions from '../config/actions';
-import UserController from './UserController';
-import ChatRoomController from './ChatRoomController';
 import ChatLogController from './ChatLogController';
+import ChatRoomController from './ChatRoomController';
+import UserController from './UserController';
 
 class SocketController {
-    constructor(socket, io, chatRoom, chatLog, users) {
+    constructor(socket, io, chatRoom, chatLog, users, pipedriveAPIkey) {
         this.socket = socket;
         this.io = io;
         this.chatRoom = chatRoom;
         this.chatLog = chatLog;
         this.users = users;
+        this.pipedriveAPIkey = pipedriveAPIkey;
     }
 
     handleEvents = () => {
@@ -25,13 +26,15 @@ class SocketController {
                     return this.actionInitialize(action, this.socket.id);
                 case socketActions.TYPING:
                     return this.actionTyping(action);
+                case socketActions.SEND_DEAL:
+                    return this.actionSendPipedriveDeal(action, this.chatLog, this.chatRoom);
                 default:
                     return console.log('Unknown action ', action.type);
             }
         });
 
         this.socket.on('disconnect', () => {
-            console.log("disconnected");
+            console.log('disconnected');
             UserController.userDisconnected(this.users, this.socket);
             this.updateRoomsAll(this.chatRoom, this.users, this.io, this.chatLog);
         });
@@ -44,8 +47,7 @@ class SocketController {
         const nickname = action.data.nickname;
 
         if (!action.data.nickname) {
-            console.log('Nickname missing');
-            return null;
+            return this.sendError('Nickname missing', 'Error');
         }
         const users = this.users;
         const activeSameUser = _.find(users, {nickname: nickname});
@@ -120,7 +122,7 @@ class SocketController {
     };
 
     actionMessage = (action) => {
-        if (action.data.message === "") {
+        if (action.data.message === '') {
             return this.sendError('Message missing', 'Error');
         }
         ChatLogController.updateChatLog(this.chatRoom, this.users, this.io,
@@ -135,6 +137,20 @@ class SocketController {
                     typingId: action.data.userId,
                     typing: action.data.typing
                 }
+            }
+        });
+    };
+
+    actionSendPipedriveDeal = (action, chatLog, chatRoom) => {
+
+    };
+
+    sendError = (message, severity) => {
+        this.socket.emit('action', {
+            type: 'SERVER_ERROR',
+            data: {
+                message,
+                severity
             }
         });
     };

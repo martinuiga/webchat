@@ -6,7 +6,6 @@ export const ROOM_UPDATE = 'ROOM_UPDATE';
 export const UPDATE_LOG_FULL = 'UPDATE_LOG_FULL';
 export const UPDATE_LOG_SINGLE = 'UPDATE_LOG_SINGLE';
 export const SERVER_ERROR = 'SERVER_ERROR';
-export const CLOSE_SNACK = 'CLOSE_SNACK';
 export const USERS_UPDATE = 'USERS_UPDATE';
 
 export const INITIALIZE = "server/initialize";

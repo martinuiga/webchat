@@ -7,7 +7,6 @@ const initialState = {
     chatRoom: [],
     nickInUse: false,
     serverError: {},
-    snackOpen: false,
     users: [],
     chatLog: [],
     typers: [],
@@ -46,14 +45,7 @@ const newNameRequired = (state, action) => {
 
 const serverError = (state, action) => {
     return updateObject(state, {
-        serverError: action.data,
-        snackOpen: true
-    })
-};
-
-const closeSnack = (state, action) => {
-    return updateObject(state, {
-        snackOpen: false
+        serverError: action.data
     })
 };
 
@@ -93,8 +85,6 @@ export default (state = initialState, action) => {
             return updateLogSingle(state, action);
         case actionTypes.SERVER_ERROR:
             return serverError(state, action);
-        case actionTypes.CLOSE_SNACK:
-            return closeSnack(state, action);
         default:
             return state;
     }

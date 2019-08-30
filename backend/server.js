@@ -14,9 +14,10 @@ let socketController;
 let chatRoom = config.chatRoom;
 let chatLog = config.chatLog;
 const users = config.users;
+const pipedriveKey = config.config.app.pipedriveAPIkey;
 
 io.on('connection', (socket) => {
-    socketController = new SocketController(socket, io, chatRoom, chatLog, users);
+    socketController = new SocketController(socket, io, chatRoom, chatLog, users, pipedriveKey);
     socketController.handleEvents();
 });
 console.log(`Server started on port ${port}`);

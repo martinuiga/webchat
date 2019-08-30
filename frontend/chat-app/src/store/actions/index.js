@@ -1,7 +1,6 @@
 export {
     initialize,
-    sendResponse,
-    closeSnack
+    sendResponse
 } from './socket';
 
 export {

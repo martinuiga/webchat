@@ -1,4 +1,4 @@
-import * as actionTypes from "../../../../../../webchat/frontend/chat-app/src/store/actions/actionTypes";
+import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from "../../shared/utility";
 
 const userInitialState = {

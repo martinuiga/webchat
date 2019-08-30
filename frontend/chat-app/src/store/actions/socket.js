@@ -17,12 +17,3 @@ export const sendResponse = (message) => {
 		}
 	}
 };
-
-export const closeSnack = () => {
-	return {
-		type: actionTypes.CLOSE_SNACK,
-		data: {
-
-		}
-	}
-};
