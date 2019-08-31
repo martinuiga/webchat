@@ -3,6 +3,7 @@ import socketActions from '../config/actions';
 import ChatLogController from './ChatLogController';
 import ChatRoomController from './ChatRoomController';
 import UserController from './UserController';
+import PipedriveController from './PipedriveController';
 
 class SocketController {
     constructor(socket, io, chatRoom, chatLog, users, pipedriveAPIkey) {
@@ -142,7 +143,7 @@ class SocketController {
     };
 
     actionSendPipedriveDeal = (action, chatLog, chatRoom) => {
-
+        PipedriveController.createNewDeal(chatLog, chatRoom, this.pipedriveAPIkey);
     };
 
     sendError = (message, severity) => {
