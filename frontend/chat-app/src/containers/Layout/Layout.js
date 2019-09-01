@@ -1,12 +1,13 @@
 import Grid from '@material-ui/core/Grid/Grid';
+import { withStyles } from '@material-ui/core/styles';
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/index';
+import { compose } from 'redux';
 import ChatArea from '../../components/ChatArea/ChatArea';
 import Modal from '../../components/Modal/Modal';
-import { withStyles } from '@material-ui/core/styles';
+import * as actions from '../../store/actions/index';
+import { createPipedriveDeal } from '../../store/actions/index';
 import { styles } from './LayoutStyles';
-import { compose } from 'redux';
 
 class Layout extends Component {
     state = {
@@ -28,6 +29,10 @@ class Layout extends Component {
         this.setState({nickname: event.target.value});
     };
 
+    createDeal = () => {
+        this.props.createPipedriveDeal();
+    };
+
     render() {
         let content = '';
         const {classes} = this.props;
@@ -45,6 +50,7 @@ class Layout extends Component {
                             typers={this.props.typers}
                             ownerId={this.props.ownerId}
                             nickname={this.props.nickname}
+                            deal={() => this.createDeal()}
                         />
                     </Grid>
                 </Grid>
@@ -89,6 +95,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         setNickname: (nickname) => {
             dispatch(actions.setNickname(nickname))
+        },
+        createPipedriveDeal: () => {
+            dispatch(createPipedriveDeal())
         }
     }
 };

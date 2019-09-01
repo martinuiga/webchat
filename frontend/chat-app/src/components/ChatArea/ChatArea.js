@@ -46,7 +46,9 @@ const ChatArea = (props) => {
                   xs={12}>
                 <Header
                     users={users}
-                    room={room.name}/>
+                    room={room.name}
+                    deal={props.deal}
+                />
             </Grid>
             <Grid item
                   xs={12}>

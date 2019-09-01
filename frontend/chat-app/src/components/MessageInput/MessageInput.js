@@ -4,7 +4,7 @@ import Textfield from '@material-ui/core/TextField';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { isTyping, sendMessage, createPipedriveDeal } from '../../store/actions/chat';
+import { isTyping, sendMessage } from '../../store/actions/chat';
 import styles from './MessageInputStyles';
 
 
@@ -36,10 +36,10 @@ class MessageInput extends Component {
     render() {
         const {classes} = this.props;
         return (
-            <div>
+            <div className={classes.inputArea}>
                 <Textfield onChange={this.handleTextFieldChange}
                            multiline={true}
-                           placeholder="Input..."
+                           placeholder="Insert message..."
                            value={this.state.input}
                            className={classes.inputField}
                            InputProps={{disableUnderline: true}}
@@ -68,9 +68,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         isTyping: (nickname, id, typing) => {
             dispatch(isTyping(nickname, id, typing))
-        },
-        createPipedriveDeal: () => {
-            dispatch(createPipedriveDeal())
         }
     }
 };

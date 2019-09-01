@@ -18,12 +18,6 @@ const chatRoom = {
 };
 
 const users = [
-    {
-        id: 0,
-        socketId: 'asdasd',
-        nickname: 'Jüri',
-        connected: true
-    }
 ];
 
 module.exports = {

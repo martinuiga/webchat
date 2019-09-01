@@ -4,7 +4,7 @@ import Layout from './containers/Layout/Layout';
 
 class App extends Component {
     componentDidMount() {
-        document.title = 'WebChat'
+        document.title = 'MobiLab Chat'
     }
 
     render() {

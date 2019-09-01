@@ -11,7 +11,6 @@ const Messages = (props) => {
     let content = [];
 
     _.forEach(chatLog, message => {
-        console.log(chatLog);
         const user = _.find(users, {id: message.owner});
         let msg = (
             <Grid item xs={12} key={message.id}>

@@ -20,8 +20,8 @@ const Header = (props) => (
             </Grid>
             <Grid item xs={2}>
                 <Typography align={'right'}>
-                    <Button
-                        variant="contained">
+                    <Button onClick={props.deal}
+                            variant="contained">
                         Create deal
                     </Button>
                 </Typography>

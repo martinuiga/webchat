@@ -2,8 +2,8 @@ import _ from 'lodash';
 import socketActions from '../config/actions';
 import ChatLogController from './ChatLogController';
 import ChatRoomController from './ChatRoomController';
-import UserController from './UserController';
 import PipedriveController from './PipedriveController';
+import UserController from './UserController';
 
 class SocketController {
     constructor(socket, io, chatRoom, chatLog, users, pipedriveAPIkey) {
@@ -17,7 +17,6 @@ class SocketController {
 
     handleEvents = () => {
         this.socket.on('action', (action) => {
-            console.log(action);
             switch (action.type) {
                 case socketActions.INITIALIZE:
                     return this.actionInitialize(action, this.socket.id);
