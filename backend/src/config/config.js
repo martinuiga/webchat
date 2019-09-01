@@ -1,7 +1,7 @@
 const config = {
     app: {
         port: process.env.PORT || 3005,
-        pipedriveAPIkey: 'b5b9bdc0ef52a3dce01d814544a9264c9328e088'
+        pipedriveAPIkey: ''
     }
 };
 
