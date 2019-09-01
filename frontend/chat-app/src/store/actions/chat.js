@@ -1,4 +1,4 @@
-import { SEND_MESSAGE, TYPING } from './actionTypes';
+import { SEND_DEAL_REQ, SEND_MESSAGE, TYPING } from './actionTypes';
 
 export const sendMessage = (message, nickname, userId) => {
     return {
@@ -21,4 +21,9 @@ export const isTyping = (nickname, userId, typing) => {
         }
     }
 };
- 
+
+export const createPipedriveDeal = () => {
+    return {
+        type: SEND_DEAL_REQ
+    }
+};

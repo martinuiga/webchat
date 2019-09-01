@@ -8,5 +8,6 @@ export {
 } from './user';
 
 export {
-    sendMessage
+    sendMessage,
+    createPipedriveDeal
 } from './chat';
